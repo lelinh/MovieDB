@@ -381,6 +381,7 @@
 				05F334A91E54A0D000ECCA9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

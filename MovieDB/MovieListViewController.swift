@@ -17,7 +17,6 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     let tmdbUrl = "https://image.tmdb.org/t/p/w500"
     // Initialize a UIRefreshControl
     let refreshController = UIRefreshControl()
-    var selectedRow = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,9 +55,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         print(imageUrl)
         return cell
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRow = indexPath.row + 1
-    }
+    
     
     func loadMovieDataBase() {
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -79,7 +76,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
                                     if let responseDictionary = try! JSONSerialization.jsonObject(
                                         with: data, options:[]) as? NSDictionary {
                                         self.movie = (responseDictionary["results"] as! [NSDictionary])
-                                        print(self.movie[0])
+                                        //print(self.movie)
                                         self.tableView.reloadData()
                                         //end refresh database
                                         self.refreshController.endRefreshing()
@@ -101,7 +98,10 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let MovieDetail = segue.destination as! MovieDetailViewController
-        MovieDetail.movieDB = movie[selectedRow]
+        // Get sellected row
+        var indexPath = tableView.indexPath(for: sender as! UITableViewCell)?.row
+        // Send selected movie data to detail view controller
+        MovieDetail.movieDB = movie[indexPath!]
     }
  
 

@@ -12,6 +12,11 @@ import AFNetworking
 class MovieListViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var networkWarningView: UIView!
+    @IBAction func reloadButton(_ sender: UIButton) {
+        checkNetwork()
+        loadMovieDataBase()
+    }
     
     var movie = [NSDictionary]()
     let tmdbUrl = "https://image.tmdb.org/t/p/w500"
@@ -20,18 +25,25 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkNetwork()
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
         loadMovieDataBase()
-        
         //Add refresh database
         refreshController.addTarget(self, action: #selector(refreshControlAction(refreshController:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshController, at: 0)
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        checkNetwork()
+        
+        // Un-select the selected row
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: animated)
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -91,6 +103,36 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     func refreshControlAction(refreshController: UIRefreshControl) {
         loadMovieDataBase()
     }
+    // Check network
+    func checkNetwork() {
+        if !isInternetAvailable() {
+            tableView.isHidden = true
+            networkWarningView.isHidden = false
+        }else{
+            networkWarningView.isHidden = true
+            tableView.isHidden = false
+        }
+    }
+    func isInternetAvailable() -> Bool
+    {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -99,7 +141,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         // Pass the selected object to the new view controller.
         let MovieDetail = segue.destination as! MovieDetailViewController
         // Get sellected row
-        var indexPath = tableView.indexPath(for: sender as! UITableViewCell)?.row
+        let indexPath = tableView.indexPath(for: sender as! UITableViewCell)?.row
         // Send selected movie data to detail view controller
         MovieDetail.movieDB = movie[indexPath!]
     }

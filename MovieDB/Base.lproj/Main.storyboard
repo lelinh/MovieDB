@@ -65,12 +65,41 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cuc-8e-jtP">
+                                <rect key="frame" x="0.0" y="220" width="320" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="warning" translatesAutoresizingMaskIntoConstraints="NO" id="ZbE-XB-CiL">
+                                        <rect key="frame" x="42" y="26" width="76" height="76"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Network Error!!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWK-f7-7op">
+                                        <rect key="frame" x="138" y="35" width="117" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQr-W6-cfr">
+                                        <rect key="frame" x="173" y="90" width="47" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Reload">
+                                            <color key="titleColor" red="0.041455333769999998" green="0.041455333769999998" blue="0.041455333769999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="reloadButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dh3-gA-X0f"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="UOs-9D-JZV"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="networkWarningView" destination="cuc-8e-jtP" id="tE4-kd-80Q"/>
                         <outlet property="tableView" destination="jFx-or-kiE" id="yOO-Nx-0wm"/>
                     </connections>
                 </viewController>
@@ -78,7 +107,7 @@
             </objects>
             <point key="canvasLocation" x="1260" y="7.394366197183099"/>
         </scene>
-        <!--Movie Detail View Controller-->
+        <!--Overview-->
         <scene sceneID="GLH-Oo-nOm">
             <objects>
                 <viewController id="x5j-o1-vIX" customClass="MovieDetailViewController" customModule="MovieDB" customModuleProvider="target" sceneMemberID="viewController">
@@ -124,8 +153,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="kxi-B1-E1k">
-                        <barButtonItem key="backBarButtonItem" title="Movies" id="zKr-8b-uMF"/>
+                    <navigationItem key="navigationItem" title="Overview" id="kxi-B1-E1k">
+                        <barButtonItem key="backBarButtonItem" title="Movies" id="aXt-7z-dvw"/>
                     </navigationItem>
                     <connections>
                         <outlet property="detailView" destination="sda-a2-e2Y" id="HmW-hR-otx"/>
@@ -159,4 +188,7 @@
             <point key="canvasLocation" x="518" y="7"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="warning" width="64" height="64"/>
+    </resources>
 </document>

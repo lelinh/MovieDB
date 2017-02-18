@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KRProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MovieDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,7 +22,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>17A22CC2A3489795E558767707ACF47A</key>
+		<key>1BB9D158803389BD6B621B7E4571C94A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9ACEF2C498EF8F83B78A83DB2C1F172</key>
 		<dict>
 			<key>primary</key>
 			<true/>

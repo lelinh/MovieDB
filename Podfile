@@ -7,4 +7,5 @@ target 'MovieDB' do
 
   # Pods for MovieDB
 pod 'AFNetworking', '~> 3.0'
+pod ‘KRProgressHUD'
 end

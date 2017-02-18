@@ -8,7 +8,7 @@
 
 import UIKit
 import AFNetworking
-
+import KRProgressHUD
 class MovieListViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
@@ -70,6 +70,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     
     
     func loadMovieDataBase() {
+        KRProgressHUD.show()
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
         let request = URLRequest(
@@ -90,6 +91,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
                                         self.movie = (responseDictionary["results"] as! [NSDictionary])
                                         //print(self.movie)
                                         self.tableView.reloadData()
+                                        KRProgressHUD.dismiss()
                                         //end refresh database
                                         self.refreshController.endRefreshing()
                                     }
@@ -106,8 +108,9 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     // Check network
     func checkNetwork() {
         if !isInternetAvailable() {
+            KRProgressHUD.dismiss()
             tableView.isHidden = true
-            networkWarningView.isHidden = false
+            networkWarningView.isHidden = false            
         }else{
             networkWarningView.isHidden = true
             tableView.isHidden = false

@@ -31,7 +31,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="187"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VH9-3q-a8E" id="fOx-re-3tG">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="186.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="186"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVc-ll-7nR">
@@ -60,6 +60,7 @@
                                             <outlet property="overviewLabel" destination="oJd-Ac-kMx" id="aaD-TN-DRe"/>
                                             <outlet property="posterImage" destination="wIV-KQ-ePf" id="nVN-5U-9TB"/>
                                             <outlet property="titleLabel" destination="YVc-ll-7nR" id="qD2-PU-1HL"/>
+                                            <segue destination="x5j-o1-vIX" kind="push" id="Rie-uO-Xk9"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -68,6 +69,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="UOs-9D-JZV"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="jFx-or-kiE" id="yOO-Nx-0wm"/>
                     </connections>
@@ -76,11 +78,73 @@
             </objects>
             <point key="canvasLocation" x="1260" y="7.394366197183099"/>
         </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="GLH-Oo-nOm">
+            <objects>
+                <viewController id="x5j-o1-vIX" customClass="MovieDetailViewController" customModule="MovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4OJ-AE-Y9b"/>
+                        <viewControllerLayoutGuide type="bottom" id="ULc-x4-gxX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sGw-Jx-VsA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ybK-zk-R59">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xk8-8s-q7X">
+                                <rect key="frame" x="0.0" y="249" width="320" height="319"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view alpha="0.98999999999999999" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sda-a2-e2Y">
+                                        <rect key="frame" x="21" y="100" width="279" height="199"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fKW-yo-XJn">
+                                                <rect key="frame" x="8" y="51" width="263" height="148"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Noi-r9-hsc">
+                                                <rect key="frame" x="8" y="8" width="263" height="35"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kxi-B1-E1k">
+                        <barButtonItem key="backBarButtonItem" title="Movies" id="zKr-8b-uMF"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="detailView" destination="sda-a2-e2Y" id="HmW-hR-otx"/>
+                        <outlet property="movieDetailScrollView" destination="Xk8-8s-q7X" id="CD2-oJ-Yye"/>
+                        <outlet property="overviewLabel" destination="fKW-yo-XJn" id="XhJ-Um-5q8"/>
+                        <outlet property="posterImage" destination="ybK-zk-R59" id="DaL-pj-BhP"/>
+                        <outlet property="titleLabel" destination="Noi-r9-hsc" id="e9U-er-xlG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iIp-8O-Frb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1959.375" y="-4.225352112676056"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="sb8-IY-HE9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Muy-kQ-J8j" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" id="Muy-kQ-J8j" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Yf-OK-O49">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -92,7 +156,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oHx-Vf-EVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="262.5" y="7.394366197183099"/>
+            <point key="canvasLocation" x="518" y="7"/>
         </scene>
     </scenes>
 </document>

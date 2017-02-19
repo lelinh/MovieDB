@@ -26,9 +26,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.84620424470076383" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="yA8-DG-Nhf">
+                                    <rect key="frame" x="0.0" y="94" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieListTableViewCell" rowHeight="187" id="VH9-3q-a8E" customClass="MovieListTableViewCell" customModule="MovieDB" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="187"/>
+                                        <rect key="frame" x="0.0" y="72" width="320" height="187"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VH9-3q-a8E" id="fOx-re-3tG">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="186"/>
@@ -100,6 +105,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="networkWarningView" destination="cuc-8e-jtP" id="tE4-kd-80Q"/>
+                        <outlet property="searchBar" destination="yA8-DG-Nhf" id="dc3-bw-7JE"/>
                         <outlet property="tableView" destination="jFx-or-kiE" id="yOO-Nx-0wm"/>
                     </connections>
                 </viewController>
@@ -153,7 +159,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgQ-vU-Qre">
-                                                <rect key="frame" x="159" y="57" width="29" height="23"/>
+                                                <rect key="frame" x="153" y="57" width="35" height="23"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -167,7 +173,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="thumbup" translatesAutoresizingMaskIntoConstraints="NO" id="CBg-BK-4yB">
-                                                <rect key="frame" x="136" y="57" width="18" height="18"/>
+                                                <rect key="frame" x="132" y="57" width="18" height="18"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="clock-icon" translatesAutoresizingMaskIntoConstraints="NO" id="dsz-Ra-vgu">
@@ -198,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iIp-8O-Frb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3161" y="350"/>
+            <point key="canvasLocation" x="3159.375" y="349.64788732394368"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="sb8-IY-HE9">

@@ -9,7 +9,7 @@
 import UIKit
 import AFNetworking
 import KRProgressHUD
-class MovieListViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class MovieListViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var networkWarningView: UIView!
@@ -17,6 +17,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         checkNetwork()
         loadMovieDataBase()
     }
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movie = [NSDictionary]()
     let tmdbUrl = "https://image.tmdb.org/t/p/w500"
@@ -31,6 +32,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         loadMovieDataBase()
         //Add refresh database
         refreshController.addTarget(self, action: #selector(refreshControlAction(refreshController:)), for: UIControlEvents.valueChanged)
@@ -58,19 +60,57 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListTableViewCell") as! MovieListTableViewCell
         
+        if movie.count==0 {
+            
+            return cell
+        }
         let movieDictionary = movie[indexPath.row]
         let overview = movieDictionary["overview"] as? String
         let title = movieDictionary["title"] as? String
-        let imageUrl = tmdbUrl + (movieDictionary["poster_path"] as! String)
+        let urlTail = (movieDictionary["poster_path"])
+        if urlTail != nil{
+            let imageUrl = tmdbUrl + (urlTail  as! String)
+            cell.posterImage.setImageWith(URL(string: imageUrl)!)
+        }else{
+            cell.posterImage.image = #imageLiteral(resourceName: "nowplaying")
+        }
         
         cell.overviewLabel.text = overview
         cell.titleLabel.text = title
-        cell.posterImage.setImageWith(URL(string: imageUrl)!)
-        print(imageUrl)
         return cell
     }
     
     
+    func loadMovieDataBase(method: String,type: String,query: String,page: String) {
+        //KRProgressHUD.show()
+        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+        let url = URL(string: "https://api.themoviedb.org/3/\(method)/\(type)?api_key=\(apiKey)&query=\(query)&page=\(page)")
+        let request = URLRequest(
+            url: url!,
+            cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData,
+            timeoutInterval: 10)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate: nil,
+            delegateQueue: OperationQueue.main
+        )
+        let task: URLSessionDataTask =
+            session.dataTask(with: request,
+                             completionHandler: { (dataOrNil, response, error) in
+                                if let data = dataOrNil {
+                                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                                        with: data, options:[]) as? NSDictionary {
+                                        self.movie = (responseDictionary["results"] as! [NSDictionary])
+                                        print(self.movie[0])
+                                        self.tableView.reloadData()
+                                        //KRProgressHUD.dismiss()
+                                        //end refresh database
+                                        self.refreshController.endRefreshing()
+                                    }
+                                }
+            })
+        task.resume()
+    }
     func loadMovieDataBase() {
         KRProgressHUD.show()
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -100,6 +140,19 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
                                 }
             })
         task.resume()
+    }
+
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText=="" {
+            loadMovieDataBase()
+        }else{
+            loadMovieDataBase(method: "search", type: "movie", query: searchText, page: "1")
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("searchText \(searchBar.text)")
     }
     // Makes a network request to get updated data
     // Updates the tableView with the new data

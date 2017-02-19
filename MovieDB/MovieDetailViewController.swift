@@ -39,7 +39,10 @@ class MovieDetailViewController: UIViewController {
         releaseDayLabel.text! = dateFormatter.string(from:releaseDay! as Date)
         ratingLabel.text! = String(describing: movieDB["vote_average"] as! CFNumber)
         posterImage.setImageWith(URL(string: tmdbUrl + (movieDB["poster_path"] as! String))!)
+        
         runtimeLabel.text! = "1h 30m"
+        runtimeLabel.isHidden = true
+        
     }
 
     override func didReceiveMemoryWarning() {

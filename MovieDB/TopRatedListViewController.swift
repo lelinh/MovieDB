@@ -1,15 +1,16 @@
 //
-//  MovieListViewController.swift
+//  TopRatedListViewController.swift
 //  MovieDB
 //
-//  Created by Linh Le on 2/15/17.
+//  Created by Linh Le on 2/19/17.
 //  Copyright © 2017 Linh Le. All rights reserved.
 //
 
 import UIKit
 import AFNetworking
 import KRProgressHUD
-class MovieListViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+
+class TopRatedListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var networkWarningView: UIView!
@@ -56,16 +57,16 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieListTableViewCell") as! MovieListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TopRatedMovieListTableViewCell") as! TopRatedMovieListTableViewCell
         
         let movieDictionary = movie[indexPath.row]
-        let overview = movieDictionary["overview"] as? String
-        let title = movieDictionary["title"] as? String
+        let overview = movieDictionary["overview"] as! String
+        let title = movieDictionary["title"] as! String
         let imageUrl = tmdbUrl + (movieDictionary["poster_path"] as! String)
         
         cell.overviewLabel.text = overview
-        cell.titleLabel.text = title
-        cell.posterImage.setImageWith(URL(string: imageUrl)!)
+        cell.titleLabel?.text = title
+        cell.posterImage?.setImageWith(URL(string: imageUrl)!)
         print(imageUrl)
         return cell
     }
@@ -74,7 +75,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     func loadMovieDataBase() {
         KRProgressHUD.show()
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = URL(string: "https://api.themoviedb.org/3/movie/top_rated?api_key=\(apiKey)")
         let request = URLRequest(
             url: url!,
             cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData,
@@ -112,7 +113,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         if !isInternetAvailable() {
             KRProgressHUD.dismiss()
             tableView.isHidden = true
-            networkWarningView.isHidden = false            
+            networkWarningView.isHidden = false
         }else{
             networkWarningView.isHidden = true
             tableView.isHidden = false
@@ -139,7 +140,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         return (isReachable && !needsConnection)
     }
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -152,6 +153,5 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
 //        let id = movie[indexPath!]["id"] as! CFNumber
 //        MovieDetail.id = String(describing: id)
     }
- 
 
 }

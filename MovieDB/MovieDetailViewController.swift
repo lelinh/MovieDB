@@ -16,6 +16,10 @@ class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet weak var releaseDayLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var runtimeLabel: UILabel!
+    
     @IBOutlet weak var detailView: UIView!
     
     var movieDB = NSDictionary()
@@ -28,6 +32,12 @@ class MovieDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         titleLabel.text! = movieDB["title"] as! String
         overviewLabel.text! = movieDB["overview"] as! String
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        let releaseDay = dateFormatter.date(from: (movieDB["release_date"] as! String))
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        releaseDayLabel.text! = dateFormatter.string(from:releaseDay! as Date)
+        ratingLabel.text! = String(describing: movieDB["vote_average"] as! CFNumber)
         posterImage.setImageWith(URL(string: tmdbUrl + (movieDB["poster_path"] as! String))!)
         
     }

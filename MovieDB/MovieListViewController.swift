@@ -67,9 +67,9 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         let movieDictionary = movie[indexPath.row]
         let overview = movieDictionary["overview"] as? String
         let title = movieDictionary["title"] as? String
-        let urlTail = (movieDictionary["poster_path"])
-        if urlTail != nil{
-            let imageUrl = tmdbUrl + (urlTail  as! String)
+        
+        if let urlTail = (movieDictionary["poster_path"] as? String){
+            let imageUrl = tmdbUrl + (urlTail)
             cell.posterImage.setImageWith(URL(string: imageUrl)!)
         }else{
             cell.posterImage.image = #imageLiteral(resourceName: "nowplaying")
@@ -152,6 +152,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
         print("searchText \(searchBar.text)")
     }
     // Makes a network request to get updated data

@@ -155,6 +155,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
         print("searchText \(searchBar.text)")
+        print(self.navigationItem.title!)
     }
     // Makes a network request to get updated data
     // Updates the tableView with the new data

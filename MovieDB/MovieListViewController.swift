@@ -34,6 +34,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
         tableView.dataSource = self
         searchBar.delegate = self
         loadMovieDataBase()
+        
         //Add refresh database
         refreshController.addTarget(self, action: #selector(refreshControlAction(refreshController:)), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshController, at: 0)
@@ -160,6 +161,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
     // Hides the RefreshControl
     func refreshControlAction(refreshController: UIRefreshControl) {
         loadMovieDataBase()
+        searchBar.endEditing(true)
     }
     // Check network
     func checkNetwork() {
@@ -196,6 +198,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate,UITableView
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        searchBar.endEditing(true)
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let MovieDetail = segue.destination as! MovieDetailViewController
